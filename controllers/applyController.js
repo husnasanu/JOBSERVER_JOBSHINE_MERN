@@ -60,4 +60,42 @@ exports.removeapplicationController = async (req,res)=>{
         }
         
     }
+
+   // Controller for editing job status by Admin
+exports.editStatusController = async (req, res) => {
+    console.log("Inside Edit User Applied Job Status Controller");
     
+    const { jid } = req.params; 
+    const { status } = req.body; 
+    
+    try {
+        const updateStatus = await jobList.findByIdAndUpdate(
+            jid, 
+            { status }, 
+            { new: true }
+        );
+
+        if (!updateStatus) {
+            return res.status(404).json({ message: "Job not found" });
+        }
+
+        res.status(200).json({ message: "Status updated successfully", data: updateStatus });
+    } catch (err) {
+        console.error("Error updating status:", err);
+        res.status(500).json({ message: "Internal Server Error", error: err.message });
+    }
+};
+
+// get user applied job with Authentication
+exports.getUserJobStatusController = async (req,res)=>{
+    console.log("Inside getUserJobStatusController");
+    const userId = req.userId
+    try{
+      const allUserAppliedJobs = await jobList.find({userId})
+      res.status(200).json(allUserAppliedJobs)
+    }catch(err){
+        res.status(401).json(err)
+        
+    }
+    
+}

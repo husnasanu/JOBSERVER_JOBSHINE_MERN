@@ -31,9 +31,12 @@ router.get('/get-applied-Jobs',jwtMiddleware,applyController.getUserJobControlle
 router.delete('/:jid/remove-application',applyController.removeapplicationController) 
 //get user job get request to http://localhost:3000/get-All-Jobs
 router.get('/userview',applyController.getAllApplicationController)
-
-
-
+// edit user :put request to  http://localhost:3000/user/edit
+router.put('/user/edit',jwtMiddleware,multerMiddleware.single("profilePic"),userController.editProfileController)
+// edit project : put request to http://localhost:3000/:jid/edit-status
+router.put('/:jid/edit-status', applyController.editStatusController);
+//get user Appliedjobs get request to http://localhost:3000/get-applied-Jobs
+router.get('/statusView',jwtMiddleware,applyController.getUserJobStatusController)
 
 
 

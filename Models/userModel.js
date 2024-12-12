@@ -17,7 +17,20 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
         default:"User"
+    },
+    phno:{
+        type:String,
+        
+    },
+    linkedin:{
+        type:String,
+       
+    },
+    profilePic :{
+        type : String,
+        
     }
+
 })
 
 const users = mongoose.model("users",userSchema)

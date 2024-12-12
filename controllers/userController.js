@@ -54,3 +54,22 @@ exports.loginController = async (req,res)=>{
     
     
 }
+
+// profile updation logic autherization required
+exports.editProfileController = async (req,res)=>{
+    console.log("Inside editProfileController");
+    const {username,email,password,phno,linkedin,profilePic} = req.body
+    const uploadImg = req.file?req.file.filename:profilePic
+    const userId = req.userId
+    try{
+      const updateUser = await users.findByIdAndUpdate({_id:userId},{
+        username,email,password,phno,linkedin,profilePic:uploadImg
+      },{new:true})
+      await updateUser.save()
+      res.status(200).json(updateUser)
+    }catch(err){
+        res.status(401).json(err)
+    }
+    
+}
+
