@@ -37,7 +37,10 @@ router.put('/user/edit',jwtMiddleware,multerMiddleware.single("profilePic"),user
 router.put('/:jid/edit-status', applyController.editStatusController);
 //get user Appliedjobs get request to http://localhost:3000/get-applied-Jobs
 router.get('/statusView',jwtMiddleware,applyController.getUserJobStatusController)
-
+//get user job get request to http://localhost:3000/get-All-Jobs
+router.get('/userViewByAdmin',userController.getUserController)
+// remove project : get request to http://localhost:3000/remove-application
+router.delete('/:jid/remove-user',userController.removeUserController) 
 
 
 module.exports = router
